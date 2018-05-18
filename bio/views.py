@@ -4,7 +4,7 @@ from django.template.loader import render_to_string
 from django.template import Context, Template, RequestContext
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseNotFound
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMessage
 from bio.forms import ContactForm
 
 
@@ -42,7 +42,8 @@ def contact(request):
                'contact_message': contact_message }
     content = render_to_string('bio/contact_template.txt', context)
 
-    msg = send_mail(contact_subject, content, settings.EMAIL_HOST_USER, ['bg240711@outlook.com'], fail_silently=False)
+    msg = EmailMessage(contact_subject, content, settings.EMAIL_HOST_USER, [settings.DEFAULT_TO_EMAIL])
+    msg.send()
 
     print(msg)
 
