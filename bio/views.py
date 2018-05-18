@@ -8,14 +8,16 @@ from django.core.mail import send_mail, EmailMessage
 from bio.forms import ContactForm
 
 
-# Create your views here.
+# Homepage, just render the home html page
 def about(request):
     return render(request, 'bio/about.html')
 
 #View to download pdf using button
 def download_resume(request):
+    #build the path to static file.  Would it be better practice to define file name in settings?
     file_path = os.path.join(settings.STATIC_ROOT, 'bio/Brent Gruber Resume 2018.pdf')
-    print(file_path)
+
+    #if the file exists then send it as an httpresponse, else notify user it was not found
     if os.path.exists(file_path):
         with open(file_path, 'rb') as fh:
             response = HttpResponse(fh.read(), content_type="application/pdf")
@@ -26,25 +28,26 @@ def download_resume(request):
 
 #View to send an email from the contact form
 def contact(request):
-    print("In contact view")
-    form_class = ContactForm
 
     #TODO: this needs to be a try catch in case something isn't there
-    #Also should make sure that data is in correct format and prevent header injection
+    #Also need to make sure this is not prone to header injection
+
+    #get all the details of the email from the POST library
     contact_name = request.POST.get('Name', '')
     contact_email = request.POST.get('Email', '')
     contact_subject = request.POST.get('Subject', '')
     contact_message = request.POST.get('Message', '')
 
+    #build the context to format the message
     context = {'contact_name': contact_name,
                'contact_email': contact_email,
                'contact_subject': contact_subject,
                'contact_message': contact_message }
     content = render_to_string('bio/contact_template.txt', context)
 
+    #send the messge from the default sending account to the default receiving account defined in settings
     msg = EmailMessage(contact_subject, content, settings.EMAIL_HOST_USER, [settings.DEFAULT_TO_EMAIL])
     msg.send()
 
-    print(msg)
-
+    #For now just redirect to homepage, need to figure out how to notify user message was sent
     return redirect('/')
