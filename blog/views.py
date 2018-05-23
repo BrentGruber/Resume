@@ -15,4 +15,6 @@ def Not_Found(request):
     return render(request, 'blog/404.html')
 
 def index(request):
-    return render(request, 'blog/index.html')
+    posts = Post.objects.all()
+    context = {'posts': posts}
+    return render(request, 'blog/index.html', context)
