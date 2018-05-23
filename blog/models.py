@@ -5,7 +5,9 @@ class Post(models.Model):
     title = models.CharField(max_length=50)
     content = models.TextField()
     author = models.CharField(max_length=45)
+    image = models.ImageField(blank=True)
     date = models.DateTimeField('date of post')
+    
 
 class Comment(models.Model):
     author = models.CharField(max_length=45)
