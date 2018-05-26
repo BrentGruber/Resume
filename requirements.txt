@@ -1,6 +1,7 @@
 dj-database-url==0.4.2
-Django==2.0.0
+Django==2.0
 gunicorn==19.7.1
+Pillow==5.1.0
 postgres==2.2.1
 psycopg2==2.7.1
 pytz==2017.2
