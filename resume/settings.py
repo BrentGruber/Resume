@@ -17,12 +17,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'fj5q648u5*^jztde-+kb)zjyr2#j5y%&0!-149%iyrpybnts#u'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'obscure-ridge-68817.herokuapp.com', 'brentgruber.herokuapp.com',]
+
 
 
 # Application definition
@@ -75,11 +76,11 @@ WSGI_APPLICATION = 'resume.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd3gbudhvq5mvrr',
-        'USER': 'hmviuhcvhjgxee',
-        'PASSWORD': '7b0aac912395f27bc7ee8e23a14a528ca785124250842c900042703f71b63d16',
-        'HOST': 'ec2-50-16-217-122.compute-1.amazonaws.com',
-        'PORT': '5432',
+        'NAME': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD': os.environ.get('DB_PASSWORD'),
+        'HOST': os.environ.get('DB_HOST'),
+        'PORT': os.environ.get('DB_PORT'),
     }
 }
 
@@ -128,10 +129,9 @@ STATICFILES_DIRS = ( os.path.join('bio/static'), )
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-SERVER_EMAIL = ''
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST = os.environ.get('EMAIL_HOST')
+EMAIL_HOST_USER = os.environ.get('FROM_EMAIL')
+EMAIL_HOST_PASSWORD = os.environ.get('FROM_PASSWORD')
 EMAIL_PORT = 587
-DEFAULT_FROM_EMAIL = ''
-DEFAULT_TO_EMAIL = ''
+DEFAULT_FROM_EMAIL = os.environ.get('FROM_EMAIL')
+DEFAULT_TO_EMAIL = os.environ.get('TO_EMAIL')
