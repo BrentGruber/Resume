@@ -1,1 +1,9 @@
-resume/constants.py
+.env
+db.sqlite3
+.vscode/
+
+# Byte-compiled / optimized / DLL files
+bio/__pycache__/
+*.py[cod]
+*$py.class
+

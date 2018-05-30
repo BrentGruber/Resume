@@ -18,6 +18,18 @@ img { image-orientation: horizontal; }
 /* Remove margins from "page content" on small screens */
 @media only screen and (max-width: 600px) {#main {margin-left: 0}}
 </style>
+<head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119559246-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-119559246-1');
+</script>
+
+</head>
 <body class="w3-black">
 
 {% load static %}
@@ -64,6 +76,10 @@ img { image-orientation: horizontal; }
   <header class="w3-container w3-padding-32 w3-center w3-black" id="home">
     <h1 class="w3-jumbo"><span class="w3-hide-small">I'm</span> Brent Gruber.</h1>
     <p>Programmer and Engineer</p>
+    <a href="https://www.facebook.com/brent.m.gruber"><i class="fa fa-facebook-official w3-hover-opacity w3-xxlarge"></i></a>
+    <i class="fa fa-snapchat w3-hover-opacity w3-xxlarge"></i>
+    <a href="https://www.linkedin.com/in/brent-gruber-30b7b781/"><i class="fa fa-linkedin w3-hover-opacity w3-xxlarge"></i></a>
+    <a href="https://github.com/BrentGruber"><i class="fa fa-github w3-hover-opacity w3-xxlarge"></i></a><br><br>
     <img src="{% static 'bio/pictures/Profile.jpg' %}" alt="boy" class="w3-image" width="992" height="1108">
   </header>
 
