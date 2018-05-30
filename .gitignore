@@ -1,1 +1,3 @@
-/resume/.env
+.env
+db.sqlite3
+.vscode
