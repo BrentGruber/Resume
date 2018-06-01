@@ -69,56 +69,31 @@ img { image-orientation: horizontal; }
 <div class="w3-padding-large" id="main">
   <!-- Header/Home -->
   <header class="w3-container w3-padding-32 w3-center w3-black" id="home">
-    <h1 class="w3-jumbo"><span class="w3-hide-small">I'm</span> Brent Gruber.</h1>
-    <p>Programmer and Engineer</p>
-    <a href="https://www.facebook.com/brent.m.gruber"><i class="fa fa-facebook-official w3-hover-opacity w3-xxlarge"></i></a>
+    <h1 class="w3-jumbo"><span class="w3-hide-small">I'm</span> {{ profile.name }}.</h1>
+    <p>{{ profile.position }}</p>
+    <a href="{{ profile.links.Facebook }}"><i class="fa fa-facebook-official w3-hover-opacity w3-xxlarge"></i></a>
     <i class="fa fa-snapchat w3-hover-opacity w3-xxlarge"></i>
-    <a href="https://www.linkedin.com/in/brent-gruber-30b7b781/"><i class="fa fa-linkedin w3-hover-opacity w3-xxlarge"></i></a>
-    <a href="https://github.com/BrentGruber"><i class="fa fa-github w3-hover-opacity w3-xxlarge"></i></a><br><br>
+    <a href="{{ profile.links.LinkedIn }}"><i class="fa fa-linkedin w3-hover-opacity w3-xxlarge"></i></a>
+    <a href="{{ profile.links.Github }}"><i class="fa fa-github w3-hover-opacity w3-xxlarge"></i></a><br><br>
     <img src="{% static 'bio/pictures/Profile.jpg' %}" alt="boy" class="w3-image" width="992" height="1108">
   </header>
 
   <!-- About Section -->
   <div class="w3-content w3-justify w3-text-grey w3-padding-64" id="about">
-    <h2 class="w3-text-light-grey">Brent</h2>
+    <h2 class="w3-text-light-grey">{{ profile.name }}</h2>
     <hr style="width:200px" class="w3-opacity">
-    <p>I am a graduate from Ohio University where I earned my Bachelor's of science in Computer science.  While I was studying I spent a summer interning as an embedded software engineer at
-      Advanced Systems and Designs in Chagrin Falls, OH.  Later I accepted a Co-Op to work as a software support engineer at Diebold in Canton, OH, where I continued to co-op for 4 semesters.
-      After graduation I began my career with PNC bank where I currently am today.
-      <br><br>
-      Aside from programming I also enjoy video games, especially one with a good story, watching marvel movies, because who doesn't?, and playing/watching sports.  I'm unfortunately a Cleveland
-       sports fan :(, and I sometimes like to find a local basketball court to play some pickup games.  One of my newest hobbies is losing money in the stock market, now that I've entered this phase
-       of my life I've become interested in personal finance and investment strategies.  I plan on one day becoming involved in real estate investment, once I do my research.
-      <br><br>
-      I also just have a general interest in all technology and tech infrastructure.  I built the computer that I used to create this site, and I plan on one day creating a project to use it as a server
-      which will serve up Virtual machines that I can use for development projects (Although I'm more interested in creating the actual VM server)
-      <br><br>
-      I built this website with the Django framework.  I enjoy learning new technologies so I decided to pick this up and play with it in order to start a sandbox for a learning experience.
-      If you are interested you can find the source code
-      <a href="https://github.com/BrentGruber/Resume">here.</a>  It is hosted on Heroku with a pipeline that will deploy every time I make a commit to the master branch in github.
-      <br><br>
-      If you would like to look at any of my other projects you can check out my github account <a href="https://github.com/BrentGruber">here</a>.  Otherwise please feel free to contact me with
-      any questions you have about anything.  There is a contact form at the bottom of this page if you either scroll down or hit the contact button on the navigation bar.
-
-      Look Forward to hearing from you!
+    <p>{{ profile.about }}
     </p>
     <h3 class="w3-padding-16 w3-text-light-grey" id="skills">My Skills</h3>
-    <p class="w3-wide">Python</p>
+
+
+    {% for skill in profile.skills.skills %}
+    <p class="w3-wide">{{ skill.Name }}</p>
     <div class="w3-white">
-      <div class="w3-dark-grey" style="height:28px;width:95%"></div>
+      <div class="w3-dark-grey" style="height:28px;width:{{ skill.Value }}%"></div>
     </div>
-    <p class="w3-wide">Adaptability</p>
-    <div class="w3-white">
-      <div class="w3-dark-grey" style="height:28px;width:85%"></div>
-    </div>
-    <p class="w3-wide">Problem Solving</p>
-    <div class="w3-white">
-      <div class="w3-dark-grey" style="height:28px;width:80%"></div>
-    </div>
-    <p class="w3-wide">Django</p>
-    <div class="w3-white">
-      <div class="w3-dark-grey" style="height:28px;width:70%"></div>
-    </div><br>
+    {% endfor %}
+    <br>
     
 
   <form action="/download_resume">
@@ -138,9 +113,9 @@ img { image-orientation: horizontal; }
     <hr style="width:200px" class="w3-opacity">
 
     <div class="w3-section">
-      <p><i class="fa fa-map-marker fa-fw w3-text-white w3-xxlarge w3-margin-right"></i> Cleveland, US</p>
-      <p><i class="fa fa-phone fa-fw w3-text-white w3-xxlarge w3-margin-right"></i> Phone: +1 (440) 749-5011</p>
-      <p><i class="fa fa-envelope fa-fw w3-text-white w3-xxlarge w3-margin-right"> </i> Email: brent.gruber77@gmail.com</p>
+      <p><i class="fa fa-map-marker fa-fw w3-text-white w3-xxlarge w3-margin-right"></i> {{ profile.location}}</p>
+      <p><i class="fa fa-phone fa-fw w3-text-white w3-xxlarge w3-margin-right"></i> Phone: {{ profile.Phone}}</p>
+      <p><i class="fa fa-envelope fa-fw w3-text-white w3-xxlarge w3-margin-right"> </i> Email: {{ profile.Email}}</p>
     </div><br>
     <p>Lets get in touch. Send me a message:</p>
 
@@ -162,10 +137,10 @@ img { image-orientation: horizontal; }
   
     <!-- Footer TODO: add links-->
   <footer class="w3-content w3-padding-64 w3-text-grey w3-xlarge">
-    <a href="https://www.facebook.com/brent.m.gruber"><i class="fa fa-facebook-official w3-hover-opacity"></i></a>
+    <a href="{{ profile.links.Facebook }}"><i class="fa fa-facebook-official w3-hover-opacity"></i></a>
     <i class="fa fa-snapchat w3-hover-opacity"></i>
-    <a href="https://www.linkedin.com/in/brent-gruber-30b7b781/"><i class="fa fa-linkedin w3-hover-opacity"></i></a>
-    <a href="https://github.com/BrentGruber"><i class="fa fa-github w3-hover-opacity"></i></a>
+    <a href="{{ profile.links.LinkedIn}}"><i class="fa fa-linkedin w3-hover-opacity"></i></a>
+    <a href="{{ profile.links.Github }}"><i class="fa fa-github w3-hover-opacity"></i></a>
     <p class="w3-medium">Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank" class="w3-hover-text-green">w3.css</a></p>
   <!-- End footer -->
   </footer>

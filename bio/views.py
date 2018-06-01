@@ -6,11 +6,13 @@ from django.conf import settings
 from django.http import HttpResponse, HttpResponseNotFound
 from django.core.mail import send_mail, EmailMessage
 from bio.forms import ContactForm
+from .models import Profile
 
 
 # Homepage, just render the home html page
 def about(request):
-    return render(request, 'bio/about.html')
+    profile = Profile.objects.get(name='Brent Gruber')
+    return render(request, 'bio/about.html', {'profile' : profile})
 
 #View to download pdf using button
 def download_resume(request):

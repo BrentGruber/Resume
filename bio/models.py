@@ -11,3 +11,10 @@ class Profile(models.Model):
     about = models.TextField()
     links = JSONField()
     skills = JSONField()
+
+    @property
+    def get_skill(self):
+        return json.dumps(self.skills)
+
+    def __str__(self):
+        return self.name
