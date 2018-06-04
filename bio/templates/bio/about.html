@@ -14,7 +14,11 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 /* Add a left margin to the "page content" that matches the width of the sidebar (120px) */
 #main {margin-left: 120px}
 /* make sure image orientation is upright */
-img { image-orientation: horizontal; }
+img {
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%);
+    image-orientation:vertical
+}
 /* Remove margins from "page content" on small screens */
 @media only screen and (max-width: 600px) {#main {margin-left: 0}}
 </style>
@@ -36,7 +40,7 @@ img { image-orientation: horizontal; }
 <!-- Icon Bar (Sidebar - hidden on small screens) -->
 <nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
   <!-- Avatar image in top left corner -->
-  <img src="{% static 'bio/pictures/Profile.jpg' %}" style="width:100%">
+  <img src="{{ profile.image.url }}" class="w3-img" style="width:100%">
   <a href="#" class="w3-bar-item w3-button w3-padding-large w3-black">
     <i class="fa fa-home w3-xxlarge"></i>
     <p>HOME</p>
@@ -75,14 +79,14 @@ img { image-orientation: horizontal; }
     <i class="fa fa-snapchat w3-hover-opacity w3-xxlarge"></i>
     <a href="{{ profile.links.LinkedIn }}"><i class="fa fa-linkedin w3-hover-opacity w3-xxlarge"></i></a>
     <a href="{{ profile.links.Github }}"><i class="fa fa-github w3-hover-opacity w3-xxlarge"></i></a><br><br>
-    <img src="{% static 'bio/pictures/Profile.jpg' %}" alt="boy" class="w3-image" width="992" height="1108">
+    <img src="{{ profile.image.url }}" alt="boy" class="w3-image" width="992" height="1108">
   </header>
 
   <!-- About Section -->
   <div class="w3-content w3-justify w3-text-grey w3-padding-64" id="about">
     <h2 class="w3-text-light-grey">{{ profile.name }}</h2>
     <hr style="width:200px" class="w3-opacity">
-    <p>{{ profile.about }}
+    <p>{{ profile.about|safe }}
     </p>
     <h3 class="w3-padding-16 w3-text-light-grey" id="skills">My Skills</h3>
 
@@ -96,7 +100,7 @@ img { image-orientation: horizontal; }
     <br>
     
 
-  <form action="/download_resume">
+  <form action={% url 'download_resume' %}>
     <button class="w3-button w3-light-grey w3-padding-large w3-section">
       <i class="fa fa-download"></i> Download Resume
     </button>
@@ -114,8 +118,8 @@ img { image-orientation: horizontal; }
 
     <div class="w3-section">
       <p><i class="fa fa-map-marker fa-fw w3-text-white w3-xxlarge w3-margin-right"></i> {{ profile.location}}</p>
-      <p><i class="fa fa-phone fa-fw w3-text-white w3-xxlarge w3-margin-right"></i> Phone: {{ profile.Phone}}</p>
-      <p><i class="fa fa-envelope fa-fw w3-text-white w3-xxlarge w3-margin-right"> </i> Email: {{ profile.Email}}</p>
+      <p><i class="fa fa-phone fa-fw w3-text-white w3-xxlarge w3-margin-right"></i> Phone: {{ profile.phone}}</p>
+      <p><i class="fa fa-envelope fa-fw w3-text-white w3-xxlarge w3-margin-right"> </i> Email: {{ profile.email}}</p>
     </div><br>
     <p>Lets get in touch. Send me a message:</p>
 

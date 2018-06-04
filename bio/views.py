@@ -10,14 +10,15 @@ from .models import Profile
 
 
 # Homepage, just render the home html page
-def about(request):
-    profile = Profile.objects.get(name='Brent Gruber')
+def about(request, prof):
+    profile = Profile.objects.get(name=prof)
+    print(profile.name)
     return render(request, 'bio/about.html', {'profile' : profile})
 
 #View to download pdf using button
-def download_resume(request):
-    #build the path to static file.  Would it be better practice to define file name in settings?
-    file_path = os.path.join(settings.STATIC_ROOT, 'bio/Brent Gruber Resume 2018.pdf')
+def download_resume(request, prof):
+    profile = Profile.objects.get(name=prof)
+    file_path = profile.resume.path
 
     #if the file exists then send it as an httpresponse, else notify user it was not found
     if os.path.exists(file_path):

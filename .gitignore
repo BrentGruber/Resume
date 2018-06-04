@@ -105,3 +105,6 @@ venv.bak/
 
 .env
 db.sqlite3
+static/*
+media/*
+.vscode/*
