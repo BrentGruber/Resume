@@ -9,8 +9,9 @@ from bio.forms import ContactForm
 from .models import Profile
 
 
-# Homepage, just render the home html page
-def about(request, prof):
+# just render the home profile page, gonna make mine default for now
+# Probably should add a home page instead of loading directly into profile
+def about(request, prof='Brent Gruber'):
     profile = Profile.objects.get(name=prof)
     print(profile.name)
     return render(request, 'bio/about.html', {'profile' : profile})
@@ -30,27 +31,31 @@ def download_resume(request, prof):
 
 
 #View to send an email from the contact form
-def contact(request):
+def contact(request, prof):
 
-    #TODO: this needs to be a try catch in case something isn't there
-    #Also need to make sure this is not prone to header injection
+    profile = Profile.objects.get(name=prof)
 
-    #get all the details of the email from the POST library
-    contact_name = request.POST.get('Name', '')
-    contact_email = request.POST.get('Email', '')
-    contact_subject = request.POST.get('Subject', '')
-    contact_message = request.POST.get('Message', '')
+    try:
+        #get all the details of the email from the POST library
+        contact_name = request.POST.get('Name', '')
+        contact_email = request.POST.get('Email', '')
+        contact_subject = request.POST.get('Subject', '')
+        contact_message = request.POST.get('Message', '')
 
-    #build the context to format the message
-    context = {'contact_name': contact_name,
-               'contact_email': contact_email,
-               'contact_subject': contact_subject,
-               'contact_message': contact_message }
-    content = render_to_string('bio/contact_template.txt', context)
+        #build the context to format the message
+        context = {'contact_name': contact_name,
+                   'contact_email': contact_email,
+                   'contact_subject': contact_subject,
+                'contact_message': contact_message }
+        content = render_to_string('bio/contact_template.txt', context)
 
-    #send the messge from the default sending account to the default receiving account defined in settings
-    msg = EmailMessage(contact_subject, content, settings.EMAIL_HOST_USER, [settings.DEFAULT_TO_EMAIL])
-    msg.send()
+        #send the messge from the default sending account to the default receiving account defined in settings
+        msg = EmailMessage(contact_subject, content, settings.EMAIL_HOST_USER, [profile.email])
+        msg.send()
+
+        response = "Message sent successfully"
+    except e:
+        response = "Message failed"
 
     #For now just redirect to homepage, need to figure out how to notify user message was sent
-    return redirect('/')
+    return redirect('bio:about', prof=profile.name)
