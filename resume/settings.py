@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'bio.apps.BioConfig',
     'tinymce',
     'filebrowser',
+    'imagekit',
 ]
 
 MIDDLEWARE = [

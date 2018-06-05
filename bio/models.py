@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.postgres.fields import JSONField
 from tinymce.models import HTMLField
+from imagekit.models import ImageSpecField
+from imagekit.processors import Transpose
 
 
 # Create your models here.
@@ -13,6 +15,7 @@ class Profile(models.Model):
     email = models.CharField(max_length=45)
     #TODO: find a better naming convention for media uploads, can't go by prof name, don't have it yet
     image = models.ImageField(blank=True, upload_to='uploads/')
+    image_spec = ImageSpecField(processors=[Transpose(Transpose.AUTO)], source='image', format='JPEG')
     resume = models.FileField(blank=True, upload_to='uploads/')
     about = HTMLField()
     links = JSONField()
