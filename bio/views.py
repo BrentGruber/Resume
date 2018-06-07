@@ -19,7 +19,9 @@ def about(request, prof='Brent Gruber'):
 #View to download pdf using button
 def download_resume(request, prof):
     profile = Profile.objects.get(name=prof)
-    file_path = profile.resume.path
+    #file_path = profile.resume.path
+    file_path = os.path.join(settings.STATIC_ROOT, 'bio/Brent Gruber Resume 2018.pdf')
+    print(file_path)
 
     #if the file exists then send it as an httpresponse, else notify user it was not found
     if os.path.exists(file_path):

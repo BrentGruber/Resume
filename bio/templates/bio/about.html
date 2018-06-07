@@ -40,7 +40,7 @@ img {
 <!-- Icon Bar (Sidebar - hidden on small screens) -->
 <nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
   <!-- Avatar image in top left corner -->
-  <img src="{{ profile.image.url }}" class="w3-img" style="width:100%">
+  <img src="{%static 'bio/pictures/Profile.jpg' %}" class="w3-img" style="width:100%">
   <a href="#" class="w3-bar-item w3-button w3-padding-large w3-black">
     <i class="fa fa-home w3-xxlarge"></i>
     <p>HOME</p>
@@ -79,7 +79,7 @@ img {
     <i class="fa fa-snapchat w3-hover-opacity w3-xxlarge"></i>
     <a href="{{ profile.links.LinkedIn }}"><i class="fa fa-linkedin w3-hover-opacity w3-xxlarge"></i></a>
     <a href="{{ profile.links.Github }}"><i class="fa fa-github w3-hover-opacity w3-xxlarge"></i></a><br><br>
-    <img src="{{ profile.image.url }}" alt="boy" class="w3-image" width="992" height="1108" >
+    <img src="{%static 'bio/pictures/Profile.jpg' %}" alt="boy" class="w3-image" width="992" height="1108" >
   </header>
 
   <!-- About Section -->
