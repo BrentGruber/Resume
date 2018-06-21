@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'tinymce',
     'filebrowser',
     'imagekit',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -154,15 +155,6 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.0/howto/static-files/
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'bio/static')]
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
-
 # Email Configuration for contact form
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -173,3 +165,25 @@ EMAIL_HOST_PASSWORD = os.environ.get('FROM_PASSWORD')
 EMAIL_PORT = 587
 DEFAULT_FROM_EMAIL = os.environ.get('FROM_EMAIL')
 DEFAULT_TO_EMAIL = os.environ.get('TO_EMAIL')
+
+
+#AWS
+AWS_ACCESS_KEY_ID = os.environ.get('S3_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('S3_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('S3_BUCKET')
+AWS_S3_CUSTOM_DOMAIN = '{}.s3.amazonaws.com'.format(AWS_STORAGE_BUCKET_NAME)
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+AWS_LOCATION = 'static'
+
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/2.0/howto/static-files/
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = 'https://{}/{}/'.format(AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'bio/static')]
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
