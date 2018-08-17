@@ -110,3 +110,10 @@ media/*
 .vscode/*
 
 migrations/*
+.vscode/
+/media/
+
+# Byte-compiled / optimized / DLL files
+bio/__pycache__/
+*.py[cod]
+*$py.class

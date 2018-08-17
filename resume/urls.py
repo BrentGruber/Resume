@@ -23,6 +23,8 @@ urlpatterns = [
     url(r'^admin/filebrowser/', site.urls),    
     url(r'^', include('bio.urls'), name='bio'),
     url(r'^tinymce/', include('tinymce.urls')),
+    url(r'blog/', include('blog.urls'), name='blog'),
+    url(r'',include('bio.urls'), name='bio'),
 ]
 
 
